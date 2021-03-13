@@ -1,20 +1,42 @@
 package com.pradioep.test.ui.main
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.pradioep.test.BuildConfig
+import com.pradioep.test.model.Error
+import com.pradioep.test.model.Movie
+import com.pradioep.test.model.Response
 import com.pradioep.test.repository.Repository
 import com.pradioep.test.ui.base.BaseViewModel
+import com.pradioep.test.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository): BaseViewModel() {
 
-    fun getPopular() {
+    val listMovie = MutableLiveData<ArrayList<Movie>>()
+
+    fun getCategory(category : Int) {
         isLoading.value = true
         viewModelScope.launch {
-            when (val response = repository.popular(BuildConfig.API_KEY, "en-US", 1)) {
+            val response: NetworkResponse<Response, Error> = when (category) {
+                1 -> {
+                    repository.popular(BuildConfig.API_KEY, "en-US", 1)
+                }
+                2 -> {
+                    repository.upcoming(BuildConfig.API_KEY, "en-US", 1)
+                }
+                3 -> {
+                    repository.topRated(BuildConfig.API_KEY, "en-US", 1)
+                }
+                else -> {
+                    repository.nowPlaying(BuildConfig.API_KEY, "en-US", 1)
+                }
+            }
+            when (response) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
+                    listMovie.value = response.body.results
                 }
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false

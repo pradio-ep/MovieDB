@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_popular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:text="Popular"/>
+    <TextView
+        android:id="@+id/tv_upcoming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:text="Upcoming"/>
+    <TextView
+        android:id="@+id/tv_top_rated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:text="Top Rated"/>
+    <TextView
+        android:id="@+id/tv_now_playing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:text="Now Playing"/>
+</LinearLayout>

@@ -2,14 +2,14 @@ package com.pradioep.test.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularResponse (
+data class Response (
         @SerializedName("page")
         val page: Int,
         @SerializedName("results")
-        val results: ArrayList<Popular>
+        val results: ArrayList<Movie>
 )
 
-data class Popular (
+data class Movie(
     @SerializedName("poster_path")
     val poster_path: String,
     @SerializedName("adult")
