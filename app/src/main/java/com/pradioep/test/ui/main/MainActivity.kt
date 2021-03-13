@@ -13,6 +13,7 @@ import com.pradioep.test.model.Movie
 import com.pradioep.test.util.UtilityHelper
 import com.pradioep.test.ui.base.BaseActivity
 import com.pradioep.test.ui.detail.DetailActivity
+import com.pradioep.test.ui.favorite.FavoriteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_category.*
 import org.koin.android.ext.android.inject
@@ -51,7 +52,7 @@ class MainActivity : BaseActivity(), MovieAdapter.MovieListener {
     override fun onStart() {
         super.onStart()
         setToolbar(getString(R.string.app_name)) {
-            startActivity(Intent(this, DetailActivity::class.java))
+            startActivity(Intent(this, FavoriteActivity::class.java))
         }
     }
 

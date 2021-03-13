@@ -1,6 +1,7 @@
 package com.pradioep.test
 
 import android.app.Application
+import com.pradioep.test.di.DatabaseModule
 import com.pradioep.test.di.NetworkModule
 import com.pradioep.test.di.RepositoryModule
 import com.pradioep.test.di.ViewModelModule
@@ -21,6 +22,7 @@ class App: Application() {
             androidContext(this@App)
             modules(
                 listOf(
+                    DatabaseModule,
                     NetworkModule,
                     RepositoryModule,
                     ViewModelModule

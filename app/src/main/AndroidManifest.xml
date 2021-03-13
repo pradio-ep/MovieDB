@@ -28,6 +28,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TranslucentStatusBar"
             tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name="com.pradioep.test.ui.favorite.FavoriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TranslucentStatusBar"
+            tools:ignore="LockedOrientationActivity"/>
     </application>
 
 </manifest>
