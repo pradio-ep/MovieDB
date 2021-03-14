@@ -34,7 +34,7 @@ class ReviewAdapter(private val context : Context, private val list : ArrayList<
                 holder.imgUser
         )
         holder.tvName.text = list[position].author
-        holder.tvDate.text = list[position].updated_at.subSequence(0, 9)
+        holder.tvDate.text = list[position].updated_at.subSequence(0, 10)
         holder.tvReview.text = list[position].content
     }
 
