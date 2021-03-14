@@ -2,13 +2,18 @@ package com.pradioep.test.ui.detail
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pradioep.test.BuildConfig
 import com.pradioep.test.R
+import com.pradioep.test.adapter.FavoriteAdapter
+import com.pradioep.test.adapter.ReviewAdapter
 import com.pradioep.test.db.MovieDB
 import com.pradioep.test.model.MovieDetail
+import com.pradioep.test.model.MovieReview
 import com.pradioep.test.util.UtilityHelper
 import com.pradioep.test.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -42,6 +47,9 @@ class DetailActivity : BaseActivity() {
             movieDetail.observe(this@DetailActivity, {
                 setMovieDetail(it)
             })
+            listMovieReview.observe(this@DetailActivity, {
+                setMovieReview(it)
+            })
         }
 
         setView()
@@ -49,6 +57,7 @@ class DetailActivity : BaseActivity() {
 
     private fun setView() {
         viewModel.getMovieDetail(intent.getIntExtra("movie_id", 0))
+        viewModel.getMovieReview(intent.getIntExtra("movie_id", 0))
     }
 
     private fun setMovieDetail(movie: MovieDetail) {
@@ -88,6 +97,16 @@ class DetailActivity : BaseActivity() {
                 } else {
                     img_favorite.setBackgroundResource(R.drawable.ic_heart)
                 }
+            }
+        }
+    }
+
+    private fun setMovieReview(listReview: ArrayList<MovieReview>) {
+        rv_review.apply {
+            isNestedScrollingEnabled = false
+            layoutManager = LinearLayoutManager(context)
+            adapter = ReviewAdapter(context, listReview).also {
+                it.notifyDataSetChanged()
             }
         }
     }

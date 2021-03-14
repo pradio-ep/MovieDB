@@ -18,7 +18,7 @@ class MainViewModel(private val repository: Repository): BaseViewModel() {
     fun getCategory(category : Int) {
         isLoading.value = true
         viewModelScope.launch {
-            val response: NetworkResponse<Response, Error> = when (category) {
+            val response = when (category) {
                 1 -> {
                     repository.popular(BuildConfig.API_KEY, "en-US", 1)
                 }
