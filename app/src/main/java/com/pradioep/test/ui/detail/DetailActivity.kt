@@ -1,11 +1,11 @@
 package com.pradioep.test.ui.detail
 
 import android.os.Bundle
-import com.google.gson.Gson
+import android.widget.Toast
 import com.pradioep.test.BuildConfig
 import com.pradioep.test.R
 import com.pradioep.test.db.MovieDB
-import com.pradioep.test.model.Movie
+import com.pradioep.test.model.MovieDetail
 import com.pradioep.test.util.UtilityHelper
 import com.pradioep.test.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -15,6 +15,7 @@ import org.koin.android.ext.android.inject
 
 class DetailActivity : BaseActivity() {
 
+    private val viewModel: DetailViewModel by inject()
     private val db: MovieDB by inject()
 
     private var isFavorite = false
@@ -22,11 +23,35 @@ class DetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        with(viewModel) {
+            isLoading.observe(this@DetailActivity, { bool ->
+                bool.let { loading ->
+                    if(loading){ showWaitingDialog() }
+                    else { hideWaitingDialog() }
+                }
+            })
+            networkError.observe(this@DetailActivity, {
+                Toast.makeText(this@DetailActivity, it, Toast.LENGTH_SHORT).show()
+                finish()
+            })
+            serverError.observe(this@DetailActivity, {
+                Toast.makeText(this@DetailActivity, it, Toast.LENGTH_SHORT).show()
+                finish()
+            })
+            movieDetail.observe(this@DetailActivity, {
+                setMovieDetail(it)
+            })
+        }
+
         setView()
     }
 
     private fun setView() {
-        val movie = Gson().fromJson(intent.getStringExtra("Movie"), Movie::class.java)
+        viewModel.getMovieDetail(intent.getIntExtra("movie_id", 0))
+    }
+
+    private fun setMovieDetail(movie: MovieDetail) {
         setToolbarAction(movie.title) {
             finish()
         }

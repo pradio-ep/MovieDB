@@ -10,15 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pradioep.test.BuildConfig
 import com.pradioep.test.R
-import com.pradioep.test.model.MovieItem
+import com.pradioep.test.model.MovieDetail
 import com.pradioep.test.util.UtilityHelper
 
 
-class MovieAdapter(private val context : Context, private val list : ArrayList<MovieItem>,
-                   private val listener: MovieListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class FavoriteAdapter(private val context : Context, private val list : ArrayList<MovieDetail>,
+                      private val listener: MovieListener) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     interface MovieListener{
-        fun onMovieClicked(movieItem: MovieItem)
+        fun onFavoriteClicked(movieDetail: MovieDetail)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,7 +32,7 @@ class MovieAdapter(private val context : Context, private val list : ArrayList<M
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.llMovie.setOnClickListener {
-            listener.onMovieClicked(list[position])
+            listener.onFavoriteClicked(list[position])
         }
         UtilityHelper.setImage(
                 context,

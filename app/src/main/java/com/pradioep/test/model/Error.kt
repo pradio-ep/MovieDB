@@ -3,10 +3,10 @@ package com.pradioep.test.model
 import com.google.gson.annotations.SerializedName
 
 data class Error (
-    @SerializedName("status")
-    val status: Int,
-    @SerializedName("error")
-    val error: String,
-    @SerializedName("message")
-    val message: String
+    @SerializedName("success")
+    val success: Boolean,
+    @SerializedName("status_code")
+    val status_code: Int,
+    @SerializedName("status_message")
+    val status_message: String
 )

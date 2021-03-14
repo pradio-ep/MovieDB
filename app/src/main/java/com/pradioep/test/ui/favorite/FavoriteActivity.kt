@@ -1,17 +1,12 @@
 package com.pradioep.test.ui.favorite
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.Gson
 import com.pradioep.test.R
-import com.pradioep.test.adapter.MovieAdapter
+import com.pradioep.test.adapter.FavoriteAdapter
 import com.pradioep.test.db.MovieDB
-import com.pradioep.test.model.Movie
-import com.pradioep.test.util.UtilityHelper
+import com.pradioep.test.model.MovieDetail
 import com.pradioep.test.ui.base.BaseActivity
 import com.pradioep.test.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +15,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class FavoriteActivity : BaseActivity(), MovieAdapter.MovieListener {
+class FavoriteActivity : BaseActivity(), FavoriteAdapter.MovieListener {
 
     private val db: MovieDB by inject()
 
@@ -52,19 +47,19 @@ class FavoriteActivity : BaseActivity(), MovieAdapter.MovieListener {
         }
     }
 
-    private fun setMovie(listMovie: ArrayList<Movie>) {
+    private fun setMovie(listMovieDetail: ArrayList<MovieDetail>) {
         rv_movie.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context)
-            adapter = MovieAdapter(context, listMovie, this@FavoriteActivity).also {
+            adapter = FavoriteAdapter(context, listMovieDetail, this@FavoriteActivity).also {
                 it.notifyDataSetChanged()
             }
         }
     }
 
-    override fun onMovieClicked(movie: Movie) {
+    override fun onFavoriteClicked(movieDetail: MovieDetail) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("Movie", Gson().toJson(movie))
+        intent.putExtra("movie_id", movieDetail.id)
         startActivity(intent)
     }
 }

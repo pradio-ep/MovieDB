@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.Gson
 import com.pradioep.test.R
 import com.pradioep.test.adapter.MovieAdapter
-import com.pradioep.test.model.Movie
+import com.pradioep.test.model.MovieItem
 import com.pradioep.test.util.UtilityHelper
 import com.pradioep.test.ui.base.BaseActivity
 import com.pradioep.test.ui.detail.DetailActivity
@@ -67,19 +66,19 @@ class MainActivity : BaseActivity(), MovieAdapter.MovieListener {
         viewModel.getCategory(category)
     }
 
-    private fun setMovie(listMovie: ArrayList<Movie>) {
+    private fun setMovie(listMovieItem: ArrayList<MovieItem>) {
         rv_movie.apply {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(context)
-            adapter = MovieAdapter(context, listMovie, this@MainActivity).also {
+            adapter = MovieAdapter(context, listMovieItem, this@MainActivity).also {
                 it.notifyDataSetChanged()
             }
         }
     }
 
-    override fun onMovieClicked(movie: Movie) {
+    override fun onMovieClicked(movieItem: MovieItem) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("Movie", Gson().toJson(movie))
+        intent.putExtra("movie_id", movieItem.id)
         startActivity(intent)
     }
 

@@ -5,20 +5,21 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.pradioep.test.model.Movie
+import com.pradioep.test.model.MovieDetail
+import com.pradioep.test.model.MovieItem
 
 @Dao
 interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addFavorite(movie: Movie)
+    fun addFavorite(movieDetail: MovieDetail)
 
-    @Query("SELECT EXISTS(SELECT * FROM Movie WHERE id = :id)")
+    @Query("SELECT EXISTS(SELECT * FROM MovieDetail WHERE id = :id)")
     fun isFavoriteMovie(id : Int) : Boolean
 
-    @Query("SELECT * FROM Movie")
-    fun getListFavorite(): List<Movie>?
+    @Query("SELECT * FROM MovieDetail")
+    fun getListFavorite(): List<MovieDetail>?
 
     @Delete
-    fun removeFavorite(movie: Movie)
+    fun removeFavorite(movieItem: MovieDetail)
 }

@@ -5,16 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.pradioep.test.BuildConfig
 import com.pradioep.test.model.Error
-import com.pradioep.test.model.Movie
+import com.pradioep.test.model.MovieItem
 import com.pradioep.test.model.Response
 import com.pradioep.test.repository.Repository
 import com.pradioep.test.ui.base.BaseViewModel
-import com.pradioep.test.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository): BaseViewModel() {
 
-    val listMovie = MutableLiveData<ArrayList<Movie>>()
+    val listMovie = MutableLiveData<ArrayList<MovieItem>>()
 
     fun getCategory(category : Int) {
         isLoading.value = true
@@ -40,7 +39,7 @@ class MainViewModel(private val repository: Repository): BaseViewModel() {
                 }
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
-                    serverError.value = response.body?.error
+                    serverError.value = response.body?.status_message
                 }
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
